@@ -1,10 +1,15 @@
+# Created 1st July, 2024
+# Huge credits to Adeala Adegbulugbe - copied 75% from his work
+
+
 def Dfx(f, x, precision=15):
     dx = 5 * pow(10, -precision)
-    return (f(x + dx) - f(x)) / dx
+    return (f(x + dx) - f(x - dx)) / (2 * dx)
+
 
 def bisection_method(f, precision=5, a=-100, b=100):
     PRECISION_LIMIT = 5 * pow(10, -precision)
-                       
+
     while True:
         xr = (a + b) / 2
         fa = f(a)
@@ -18,10 +23,11 @@ def bisection_method(f, precision=5, a=-100, b=100):
         elif fa * fxr > 0:
             a = xr
 
+
 def newton_raphson_method(f, x=2, precision=5):
     xn = x
     PRECISION_LIMIT = 5 * pow(10, -precision)
-                       
+
     while True:
         xn_plus_one = xn - (f(xn) / Dfx(f, xn))
 
@@ -34,7 +40,9 @@ def newton_raphson_method(f, x=2, precision=5):
 def str_to_func(string):
     def f(x):
         return eval(string)
+
     return f
+
 
 if __name__ == "__main__":
     f1 = str_to_func("(x ** 3) - x - 1")
